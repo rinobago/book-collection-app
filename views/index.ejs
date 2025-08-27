@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Boox</title>
+    <link rel="stylesheet" href="styles/style.css" />
+  </head>
+  <body>
+    <div class="layout-wrapper">
+      <header>
+        <h1>📚 Boox</h1>
+        <div class="sort-controls">
+          <label for="sort">Sort by:</label>
+          <div class="custom-select">
+            <select id="sort" onchange="sortBooks()">
+              <option value="date">Most Recent</option>
+              <option value="rating">Rating</option>
+              <option value="title">Title</option>
+            </select>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <div class="book-list" id="bookList">
+          <% if (books.length !== 0) { %> <% books.forEach(book => { %>
+          <div class="book-card">
+            <img class="book-cover" src="<%= book.imageUrl %>" alt="<%= book.title %> cover" />
+            <h2 class="book-title"><%= book.title %></h2>
+            <div class="book-meta">
+              <span class="book-rating">⭐ <%= book.rating %>/5</span>
+              <span class="book-date"><%= book.date_added.toISOString().split('T')[0] %></span>
+            </div>
+            <div class="book-dots">⋮</div>
+            <form class="book-menu hidden" action="/delete" method="POST">
+              <input type="hidden" name="id" value="<%= book.id %>" />
+              <button type="submit" class="delete-button">Delete</button>
+            </form>
+          </div>
+          <% }); %> <% } %>
+        </div>
+      </main>
+
+      <footer>
+        <div class="footer-info">
+          <span id="bookCount">Total Books: <%= books.length %></span>
+          <button id="addBookBtn" class="add-book-btn">➕ Add Book</button>
+          <form id="bookModal" class="modal hidden" action="/add" method="POST">
+            <div class="modal-content">
+              <h2>Search for a Book</h2>
+              <input type="text" name="title" id="bookSearchInput" placeholder="Enter book title" class="modal-input" required />
+              <input type="text" name="author" id="authorSearchInput" placeholder="Enter author name" class="modal-input" />
+              <label for="rating" class="rating-label">Rating:</label>
+              <select name="rating" class="rating-input" required>
+                <option value="" disabled selected>-</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+              <button type="submit" id="confirmSearchBtn" class="confirm-button">Confirm</button>
+            </div>
+          </form>
+        </div>
+      </footer>
+    </div>
+
+    <script src="js/frontend.js"></script>
+  </body>
+</html>
