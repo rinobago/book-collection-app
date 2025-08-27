@@ -47,11 +47,13 @@ npm install
 ### Make sure you have PostgreSQL installed and running.
 
 - Create a new database:
+
 ```
 CREATE DATABASE Boox;
 ```
 
 - Then connect to it and run this to create the books table:
+
 ```
 CREATE TABLE books (
   id SERIAL PRIMARY KEY,
@@ -64,16 +66,14 @@ CREATE TABLE books (
 
 ### 4. Configure your database credentials
 
-### In server.js, edit this section to match your setup:
+### Create a .env file in the root of your project and add your PostgreSQL connection details:
 
 ```
-const db = new pg.Client({
-  user: "your_username",
-  host: "localhost",
-  database: "Boox",
-  password: "your_password",
-  port: 5432,
-});
+DB_USER=your_pg_username
+DB_PASSWORD=your_pg_password
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=your_database_name
 ```
 
 ### 5. Start the server
